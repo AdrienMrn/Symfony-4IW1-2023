@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Création d'un y{% endblock %}
+
+{% block body %}
+    <h1>Création d'un y</h1>
+
+    {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <button type="submit">Créer</button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -15,5 +15,11 @@
     </head>
     <body>
         {% block body %}{% endblock %}
+
+        {% for type, flashMessages in app.flashes %}
+            {% for message in flashMessages %}
+                {{ type }} - {{ message }}
+            {% endfor %}
+        {% endfor %}
     </body>
 </html>

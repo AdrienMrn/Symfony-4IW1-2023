@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des y{% endblock %}
+
+{% block body %}
+    <h1>Liste des y</h1>
+
+    {{ post.content }} -
+    <em>Créé le {{ post.createdAt|date('d/m/y à H:i') }}</em> <br>
+{% endblock %}

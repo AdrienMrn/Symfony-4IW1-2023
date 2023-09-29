@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reply{% endblock %}
+
+{% block body %}
+    <h1>Reply</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reply.id }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ reply.content }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reply_index') }}">back to list</a>
+
+    <a href="{{ path('app_reply_edit', {'id': reply.id}) }}">edit</a>
+
+    {{ include('reply/_delete_form.html.twig') }}
+{% endblock %}
