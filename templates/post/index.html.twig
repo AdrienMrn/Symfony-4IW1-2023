@@ -6,12 +6,17 @@
     <h1>Liste des y</h1>
 
     {% for post in posts %}
-        {{ post.content }} -
-        <em>Créé le {{ post.createdAt|date('d/m/y à H:i') }}</em> <br>
-        <a href="{{ path('post_show', {'id': post.id}) }}">Voir</a> <br>
-        <a href="{{ path('post_update', {'id': post.id}) }}">Modifier</a> <br>
-        <a href="{{ path('post_delete', {'id': post.id, 'token': csrf_token('delete' ~ post.id)}) }}" onclick="confirm('Sur sur ?');">Suppression</a> <br>
-        <br>
+        {% embed '_composants/_card.html.twig' %}
+            {% block title %}
+                <h2>{{ post.content }}</h2>
+            {% endblock %}
+            {% block body %}
+                <em>Créé le {{ post.createdAt|date('d/m/y à H:i') }}</em> <br>
+                <a href="{{ path('post_show', {'id': post.id}) }}">Voir</a> <br>
+                <a href="{{ path('post_update', {'id': post.id}) }}">Modifier</a> <br>
+                <a href="{{ path('post_delete', {'id': post.id, 'token': csrf_token('delete' ~ post.id)}) }}" onclick="confirm('Sur sur ?');">Suppression</a> <br>
+            {% endblock %}
+        {% endembed %}
     {% else%}
         Aucun post
     {% endfor %}

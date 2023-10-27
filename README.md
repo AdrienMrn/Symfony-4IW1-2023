@@ -42,6 +42,14 @@ ParamConverter [https://symfony.com/bundles/SensioFrameworkExtraBundle/current/a
 
 ## Gestion de base de données
 
+#### Fix error duplicate table (en rapport avec le cours uniquement; quand vous faites un pull du git du cours)
+Supprimer l'ensemble de vos migrations et faire les commandes suivantes : 
+
+`docker compose exec php bin/console d:d:d --force`
+`docker compose exec php bin/console d:d:c`
+`docker compose exec php bin/console make:migr`
+`docker compose exec php bin/console d:m:m`
+
 #### Commandes de création des fichiers entity/repository et d'ajout de champs
 `docker compose exec php bin/console make:entity`
 
