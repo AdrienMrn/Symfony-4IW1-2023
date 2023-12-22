@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Back;
 
 use App\Entity\Reply;
 use App\Form\ReplyType;
@@ -17,7 +17,7 @@ class ReplyController extends AbstractController
     #[Route('/', name: 'app_reply_index', methods: ['GET'])]
     public function index(ReplyRepository $replyRepository): Response
     {
-        return $this->render('reply/index.html.twig', [
+        return $this->render('back/reply/index.html.twig', [
             'replies' => $replyRepository->findAll(),
         ]);
     }
@@ -33,10 +33,10 @@ class ReplyController extends AbstractController
             $entityManager->persist($reply);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_reply_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('back_app_reply_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('reply/new.html.twig', [
+        return $this->render('back/reply/new.html.twig', [
             'reply' => $reply,
             'form' => $form,
         ]);
@@ -45,7 +45,7 @@ class ReplyController extends AbstractController
     #[Route('/{id}', name: 'app_reply_show', methods: ['GET'])]
     public function show(Reply $reply): Response
     {
-        return $this->render('reply/show.html.twig', [
+        return $this->render('back/reply/show.html.twig', [
             'reply' => $reply,
         ]);
     }
@@ -59,10 +59,10 @@ class ReplyController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_reply_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('back_app_reply_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('reply/edit.html.twig', [
+        return $this->render('back/reply/edit.html.twig', [
             'reply' => $reply,
             'form' => $form,
         ]);
@@ -76,6 +76,6 @@ class ReplyController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_reply_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('back_app_reply_index', [], Response::HTTP_SEE_OTHER);
     }
 }

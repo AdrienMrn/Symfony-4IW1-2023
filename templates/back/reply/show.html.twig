@@ -18,9 +18,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_reply_index') }}">back to list</a>
+    <a href="{{ path('back_app_reply_index') }}">back to list</a>
 
-    <a href="{{ path('app_reply_edit', {'id': reply.id}) }}">edit</a>
+    <a href="{{ path('back_app_reply_edit', {'id': reply.id}) }}">edit</a>
 
     {{ include('reply/_delete_form.html.twig') }}
 {% endblock %}

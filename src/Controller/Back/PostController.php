@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Back;
 
 use App\Entity\Post;
 use App\Form\PostType;
@@ -17,7 +17,7 @@ class PostController extends AbstractController
     #[Route('/', name: 'index', methods: 'get')]
     public function index(PostRepository $postRepository): Response
     {
-        return $this->render('post/index.html.twig', [
+        return $this->render('back/post/index.html.twig', [
             'posts' => $postRepository->findAll(),
         ]);
     }
@@ -25,7 +25,7 @@ class PostController extends AbstractController
     #[Route('/{id}', name: 'show', requirements: ['id' => '\d{1,5}'], methods: 'get')]
     public function show(Post $post): Response
     {
-        return $this->render('post/show.html.twig', [
+        return $this->render('back/post/show.html.twig', [
             'post' => $post,
         ]);
     }
@@ -44,12 +44,12 @@ class PostController extends AbstractController
 
             $this->addFlash('success', "Le post {$post->getId()} a bien été enregistré");
 
-            return $this->redirectToRoute('post_show', [
+            return $this->redirectToRoute('back_post_show', [
                 'id' => $post->getId()
             ]);
         }
 
-        return $this->render('post/new.html.twig', [
+        return $this->render('back/post/new.html.twig', [
             'form' => $form
         ]);
     }
@@ -65,12 +65,12 @@ class PostController extends AbstractController
 
             $this->addFlash('success', "Le post {$post->getId()} a bien été modifié");
 
-            return $this->redirectToRoute('post_show', [
+            return $this->redirectToRoute('back_post_show', [
                 'id' => $post->getId()
             ]);
         }
 
-        return $this->render('post/update.html.twig', [
+        return $this->render('back/post/update.html.twig', [
             'form' => $form,
             'post' => $post
         ]);
@@ -86,6 +86,6 @@ class PostController extends AbstractController
             $this->addFlash('success', "Le post {$post->getId()} a bien été supprimé");
         }
 
-        return $this->redirectToRoute('post_index');
+        return $this->redirectToRoute('back_post_index');
     }
 }

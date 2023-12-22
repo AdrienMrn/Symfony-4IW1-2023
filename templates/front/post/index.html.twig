@@ -8,13 +8,16 @@
     {% for post in posts %}
         {% embed '_composants/_card.html.twig' %}
             {% block title %}
-                <h2>{{ post.content }}</h2>
+                <a href="{{ path('front_post_show', {'id': post.id}) }}">
+                    <h2>{{ post.content }}</h2>
+                </a>
             {% endblock %}
             {% block body %}
                 <em>Créé le {{ post.createdAt|date('d/m/y à H:i') }}</em> <br>
-                <a href="{{ path('post_show', {'id': post.id}) }}">Voir</a> <br>
-                <a href="{{ path('post_update', {'id': post.id}) }}">Modifier</a> <br>
-                <a href="{{ path('post_delete', {'id': post.id, 'token': csrf_token('delete' ~ post.id)}) }}" onclick="confirm('Sur sur ?');">Suppression</a> <br>
+
+                {% if (is_granted('ROLE_MODERATOR') or post.owner == app.user) %}
+                    <a href="{{ path('front_post_update', {'id': post.id}) }}">Editer</a>
+                {% endif %}
             {% endblock %}
         {% endembed %}
     {% else%}
