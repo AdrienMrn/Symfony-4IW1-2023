@@ -18,6 +18,9 @@ class Tag
     #[ORM\ManyToMany(targetEntity: Post::class, mappedBy: 'tags')]
     private Collection $posts;
 
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -51,6 +54,18 @@ class Tag
         if ($this->posts->removeElement($post)) {
             $post->removeTag($this);
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
 
         return $this;
     }
