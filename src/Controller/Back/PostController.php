@@ -22,7 +22,7 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'show', requirements: ['id' => '\d{1,5}'], methods: 'get')]
+    #[Route('/{id}', name: 'show', methods: 'get')]
     public function show(Post $post): Response
     {
         return $this->render('back/post/show.html.twig', [
@@ -54,7 +54,7 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/update/{id}', name: 'update', requirements: ['id' => '\d{1,5}'], methods: ['get', 'post'])]
+    #[Route('/update/{id}', name: 'update', methods: ['get', 'post'])]
     public function update(Post $post, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createForm(PostType::class, $post);
@@ -76,7 +76,7 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/delete/{id}/{token}', name: 'delete', requirements: ['id' => '\d{1,5}'], methods: 'get')]
+    #[Route('/delete/{id}/{token}', name: 'delete', methods: 'get')]
     public function delete(Post $post, string $token, EntityManagerInterface $manager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $post->getId(), $token)) {

@@ -24,11 +24,6 @@ class PostType extends AbstractType
                     'placeholder' => 'Exprimez-vous !',
                 ],
             ])
-            ->add('createdAt', DateTimeType::class, [
-                'label' => 'Date de création',
-                'widget' => 'single_text',
-                'input' => 'datetime_immutable',
-            ])
             ->add('tags', EntityType::class, [
                 'label' => 'Tags',
                 'class' => Tag::class,
