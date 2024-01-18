@@ -6,5 +6,6 @@
     <h1>Liste des y</h1>
 
     {{ post.content }} -
+    <img src=" {{ vich_uploader_asset(post, 'imageFile') }}" alt="">
     <em>Créé le {{ post.createdAt|date('d/m/y à H:i') }}</em> <br>
 {% endblock %}

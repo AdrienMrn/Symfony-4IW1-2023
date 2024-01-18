@@ -9,9 +9,11 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
-use Gedmo\Mapping\Annotation as Gedmo;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
+#[Vich\Uploadable]
 class Post
 {
     use Traits\Timestampable;
@@ -31,6 +33,23 @@ class Post
         maxMessage: 'Le contenu doit faire au plus {{ limit }} caractères',
     )]
     private ?string $content = null;
+
+    #[Vich\UploadableField(mapping: 'postImage', fileNameProperty: 'imageName', size: 'imageSize')]
+    #[Assert\Image(
+        maxSize: '1000k',
+        mimeTypes: ['image/jpeg', 'image/png'],
+        maxRatio: '1.75',
+        minRatio: '1.70',
+        maxSizeMessage: 'Le fichier ne doit pas faire plus de {{ limit }}ko, mais il fait {{ size }}',
+        mimeTypesMessage: 'Le fichier doit être au format JPG ou PNG',
+    )]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $imageSize = null;
 
     #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'posts')]
     private Collection $tags;
@@ -66,6 +85,44 @@ class Post
     {
         $this->content = $content;
 
+        return $this;
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageFile(?File $imageFile): Post
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            $this->updatedAt = new \DateTime();
+        }
+
+        return $this;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(?string $imageName): Post
+    {
+        $this->imageName = $imageName;
+        return $this;
+    }
+
+    public function getImageSize(): ?int
+    {
+        return $this->imageSize;
+    }
+
+    public function setImageSize(?int $imageSize): Post
+    {
+        $this->imageSize = $imageSize;
         return $this;
     }
 

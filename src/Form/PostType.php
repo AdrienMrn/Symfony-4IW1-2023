@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class PostType extends AbstractType
 {
@@ -31,6 +32,11 @@ class PostType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'query_builder' => fn (TagRepository $tagRepository) => $tagRepository->createQueryBuilder('t')->orderBy('t.name', 'ASC'),
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
             ])
         ;
     }
