@@ -22,15 +22,6 @@ class PostController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'show', methods: 'get')]
-    public function show(Post $post): Response
-    {
-        return $this->render('back/post/show.html.twig', [
-            'post' => $post,
-        ]);
-    }
-
-
     #[Route('/new', name: 'new', methods: ['get', 'post'])]
     public function new(Request $request, EntityManagerInterface $manager): Response
     {
@@ -51,6 +42,14 @@ class PostController extends AbstractController
 
         return $this->render('back/post/new.html.twig', [
             'form' => $form
+        ]);
+    }
+
+    #[Route('/{id}', name: 'show', methods: 'get')]
+    public function show(Post $post): Response
+    {
+        return $this->render('back/post/show.html.twig', [
+            'post' => $post,
         ]);
     }
 

@@ -2,6 +2,10 @@ controllers_security:
     resource: ../src/Controller/SecurityController.php
     type: attribute
 
+controllers_user:
+    resource: ../src/Controller/UserController.php
+    type: attribute
+
 controllers_tag:
     resource: ../src/Controller/TagController.php
     type: attribute
